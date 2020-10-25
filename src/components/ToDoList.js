@@ -6,7 +6,7 @@ import './ToDoList.css'
 class ToDoList extends React.Component {
 
     state = {
-        todos: []
+        todos: [],
     }
 
     addToDo = (todo) => {
@@ -45,7 +45,10 @@ class ToDoList extends React.Component {
                 />
 
             })}
+            <div>
+                No of active tods : {this.state.todos.filter(todo => !todo.complete).length}
+            </div>
         </div>
-    }
+    } 
 }
 export default ToDoList;
