@@ -7,6 +7,7 @@ class ToDoList extends React.Component {
 
     state = {
         todos: [],
+        toDoToShow : "all"
     }
 
     addToDo = (todo) => {
@@ -31,13 +32,29 @@ class ToDoList extends React.Component {
         })
     }
 
+    changeView = (s) => {
+        this.setState({
+            toDoToShow : s
+        })
+    }
+
     render() {
 
-        console.log(this.state.todos);
+        let todos = []
+
+        if(this.state.toDoToShow === "all"){
+            todos = this.state.todos
+        }
+        else if(this.state.toDoToShow === "completed") {
+            todos = this.state.todos.filter(todo => todo.complete )
+        }
+        else if (this.state.toDoToShow === "active"){
+            todos = this.state.todos.filter(todo => !todo.complete)
+        }
         return <div className="to-Do-list">
             <h1>To-Do-List</h1>
             <ToDoForm addToDo={this.addToDo} />
-            {this.state.todos.map((todo) => {
+            {todos.map((todo) => {
                 return <ToDo
                     key={todo.id}
                     todo={todo}
@@ -47,6 +64,17 @@ class ToDoList extends React.Component {
             })}
             <div>
                 No of active tods : {this.state.todos.filter(todo => !todo.complete).length}
+            </div>
+            <div>
+                <button onClick={()=>this.changeView("all")}>
+                    ALL
+                </button>
+                <button onClick={()=>this.changeView("active")}>
+                    Active
+                </button>
+                <button onClick={()=>this.changeView("completed")}>
+                    Completed
+                </button>
             </div>
         </div>
     } 
