@@ -44,6 +44,12 @@ class ToDoList extends React.Component {
         })
     }
 
+    deleteAllCompleted = () =>{
+        this.setState({
+            todos : this.state.todos.filter((todo)=> !todo.complete)
+        })
+    }
+
     render() {
 
         let todos = []
@@ -81,6 +87,11 @@ class ToDoList extends React.Component {
                 </button>
                 <button onClick={() => this.changeView("completed")}>
                     Completed
+                </button>
+            </div>
+            <div>
+                <button onClick = {this.deleteAllCompleted}>
+                    Delete all completed
                 </button>
             </div>
         </div>

@@ -11,7 +11,5 @@ const ToDo = props => {
             <button onClick={props.deleteToDo}>x</button>
         </div>
     </div>
-
-
 }
 export default ToDo;
