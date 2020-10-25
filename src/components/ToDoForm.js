@@ -1,22 +1,34 @@
 import React from 'react';
+import shortid from 'shortid';
 
 class ToDoForm extends React.Component {
 
     state = {
-        value: ""
+        text: ""
     }
 
     handleChange = (event) => {
         this.setState({
-            value: event.target.value
+            text: event.target.value
         })
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state.value);
-    }
 
+        if (this.state.text.length > 0) {
+            this.props.addToDo({
+                id: shortid.generate(),
+                text: this.state.text,
+                complete: false
+            })
+        }
+
+        this.setState({
+            text: ""
+        })
+
+    }
 
     render() {
 
