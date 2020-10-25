@@ -7,7 +7,7 @@ class ToDoList extends React.Component {
 
     state = {
         todos: [],
-        toDoToShow : "all"
+        toDoToShow: "all"
     }
 
     addToDo = (todo) => {
@@ -34,7 +34,13 @@ class ToDoList extends React.Component {
 
     changeView = (s) => {
         this.setState({
-            toDoToShow : s
+            toDoToShow: s
+        })
+    }
+
+    deleteToDo = id => {
+        this.setState({
+            todos : this.state.todos.filter((todo)=> todo.id !== id)
         })
     }
 
@@ -42,13 +48,13 @@ class ToDoList extends React.Component {
 
         let todos = []
 
-        if(this.state.toDoToShow === "all"){
+        if (this.state.toDoToShow === "all") {
             todos = this.state.todos
         }
-        else if(this.state.toDoToShow === "completed") {
-            todos = this.state.todos.filter(todo => todo.complete )
+        else if (this.state.toDoToShow === "completed") {
+            todos = this.state.todos.filter(todo => todo.complete)
         }
-        else if (this.state.toDoToShow === "active"){
+        else if (this.state.toDoToShow === "active") {
             todos = this.state.todos.filter(todo => !todo.complete)
         }
         return <div className="to-Do-list">
@@ -59,6 +65,7 @@ class ToDoList extends React.Component {
                     key={todo.id}
                     todo={todo}
                     toggleState={() => this.toggleState(todo.id)}
+                    deleteToDo={() => this.deleteToDo(todo.id)}
                 />
 
             })}
@@ -66,17 +73,17 @@ class ToDoList extends React.Component {
                 No of active tods : {this.state.todos.filter(todo => !todo.complete).length}
             </div>
             <div>
-                <button onClick={()=>this.changeView("all")}>
+                <button onClick={() => this.changeView("all")}>
                     ALL
                 </button>
-                <button onClick={()=>this.changeView("active")}>
+                <button onClick={() => this.changeView("active")}>
                     Active
                 </button>
-                <button onClick={()=>this.changeView("completed")}>
+                <button onClick={() => this.changeView("completed")}>
                     Completed
                 </button>
             </div>
         </div>
-    } 
+    }
 }
 export default ToDoList;
